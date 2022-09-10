@@ -84,11 +84,12 @@ const ProfileImageMinter = () => {
     const ipfsJsonHash = await pinJSONToIPFS(imageMetaData)
 
     const contract = await getEthereumContract()
-
+    const data =  await contract.mint(currentAccount, `ipfs://${ipfsJsonHash}`)
+    console.log(data, 'data')
     const transactionParameters = {
       to: contractAddress,
       from: currentAccount,
-      data: await contract.mint(currentAccount, `ipfs://${ipfsJsonHash}`),
+      data,
     }
 
     try {
